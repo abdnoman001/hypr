@@ -66,7 +66,7 @@ case "$theme_name" in
         GTK_THEME="cachyos-nord"
         COLOR_SCHEME="prefer-dark"
         ICON="preferences-desktop-theme"
-        WALLPAPER="$WALLPAPER_DIR/Fog-Forest-Everforest.png"
+        WALLPAPER="$WALLPAPER_DIR/Courtside-Sunset.png"
         ;;
     *)
         exit 0
