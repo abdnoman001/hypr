@@ -8,8 +8,8 @@ hl.config({
     general = {
         border_size = 1,
         col = {
-            active_border = "0xfff6f5f4",
-            inactive_border = "0xff87a7da",
+            active_border = "0xffabb7c3",
+            inactive_border = "0xff14366c",
         },
         gaps_in = 2,
         gaps_out = 6,
