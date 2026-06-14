@@ -42,9 +42,10 @@ case "$theme_name" in
     "Catppuccin")
         VSCODE_THEME="Catppuccin Mocha"
         KITTY_THEME="catppuccin.conf"
-        GTK_THEME="Default"
+        GTK_THEME="gruvbox-dark-gtk"
         COLOR_SCHEME="prefer-dark"
         ICON="preferences-desktop-theme"
+        WALLPAPER="$WALLPAPER_DIR/Lofi - Chill Room.png"
         ;;
     "Tokyo Night")
         VSCODE_THEME="Tokyo Night"
@@ -52,16 +53,19 @@ case "$theme_name" in
         GTK_THEME="Default"
         COLOR_SCHEME="prefer-dark"
         ICON="utilities-terminal"
+        WALLPAPER="$WALLPAPER_DIR/Tokyo_Pink.png"
         ;;
     "Gruvbox")
         VSCODE_THEME="Gruvbox Material Dark"
         KITTY_THEME="gruvbox.conf"
-        GTK_THEME="Default"
+        GTK_THEME="gruvbox-dark-gtk"
         COLOR_SCHEME="prefer-dark"
         ICON="preferences-desktop-theme"
+        WALLPAPER="$WALLPAPER_DIR/Retro - Programmer.jpeg"
         ;;
     "Nord")
         VSCODE_THEME="Nord"
+        ANTIGRAVITY_THEME="Nord"
         KITTY_THEME="nord.conf"
         GTK_THEME="cachyos-nord"
         COLOR_SCHEME="prefer-dark"
@@ -83,6 +87,27 @@ fi
 if [ -d "$KITTY_DIR" ]; then
     ln -sf "$KITTY_DIR/themes/$KITTY_THEME" "$KITTY_DIR/current-theme.conf"
     killall -USR1 kitty 2>/dev/null || true
+fi
+
+# 3. Update Wallpaper (hyprpaper and waypaper)
+if [ -n "$WALLPAPER" ]; then
+    # Write new block-style config to hyprpaper.conf
+    cat <<EOF > "$HYPR_DIR/hyprpaper.conf"
+wallpaper {
+    monitor = 
+    path = $WALLPAPER
+}
+EOF
+
+    # Sync waypaper config.ini to match the new wallpaper
+    WAYPAPER_CONFIG="$HOME/.config/waypaper/config.ini"
+    if [ -f "$WAYPAPER_CONFIG" ]; then
+        sed -i "s|^wallpaper = .*|wallpaper = $WALLPAPER|g" "$WAYPAPER_CONFIG"
+    fi
+
+    # Restart hyprpaper daemon to apply the wallpaper instantly
+    killall hyprpaper 2>/dev/null || true
+    hyprpaper >/dev/null 2>&1 &
 fi
 
 
