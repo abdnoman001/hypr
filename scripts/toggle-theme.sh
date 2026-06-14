@@ -316,40 +316,7 @@ if [ -f "$HYPR_GUI_CONF" ]; then
     hyprctl reload 2>/dev/null || true
 fi
 
-# 6. Update KDE Globals for Dolphin File Manager
-KDE_GLOBALS="$HOME/.config/kdeglobals"
-bg_rgb=$(hex_to_rgb "$BACKGROUND")
-fg_rgb=$(hex_to_rgb "$FOREGROUND")
-accent_rgb=$(hex_to_rgb "$ACCENT")
 
-cat <<EOF > "$KDE_GLOBALS"
-[General]
-ColorScheme=CustomTheme
-Name=CustomTheme
-
-[Colors:Window]
-BackgroundNormal=$bg_rgb
-ForegroundNormal=$fg_rgb
-
-[Colors:View]
-BackgroundNormal=$bg_rgb
-ForegroundNormal=$fg_rgb
-
-[Colors:Button]
-BackgroundNormal=$bg_rgb
-ForegroundNormal=$fg_rgb
-
-[Colors:Selection]
-BackgroundNormal=$accent_rgb
-ForegroundNormal=$bg_rgb
-
-[Colors:Tooltip]
-BackgroundNormal=$bg_rgb
-ForegroundNormal=$fg_rgb
-EOF
-
-# Notify running Qt/KDE applications (like Dolphin) to reload colors dynamically
-dbus-send --session --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:0 int32:0 2>/dev/null || true
 
 # 7. Update Swaylock (Unlock Screen) configuration
 SWAYLOCK_CONFIG="$HOME/.config/swaylock/config"
