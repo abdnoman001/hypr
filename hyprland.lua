@@ -37,7 +37,7 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal    = "kitty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 local menu        = "hyprlauncher"
 
 
@@ -366,9 +366,9 @@ hl.window_rule({
 
 -- screenshot--
 
-hl.bind("Print", hl.dsp.exec_cmd("grimblast copysave area ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("grimblast copysave active ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
-hl.bind("ALT + Print", hl.dsp.exec_cmd("grimblast copysave output ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"))
+hl.bind("Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-menu.sh"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-menu.sh Window"))
+hl.bind("ALT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot-menu.sh Display"))
 
 -- Theme Toggle
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-theme.sh"))
